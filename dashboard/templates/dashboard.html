@@ -1,4 +1,17 @@
-
+{% load static %}
 {% block content %}
 {{ dashboard_html|safe }}
+
+<!-- Arquivos do Dash -->
+<script src="/static/dash-renderer.min.js"></script>
+<script src="/static/react.min.js"></script>
+<script src="/static/react-dom.min.js"></script>
+<script src="/static/dash_core_components.v2_11_0m1689515825.js"></script>
+<script src="/static/dash_core_components-shared.v2_11_0m1689515825.js"></script>
+<script src="/static/dash_html_components.v2_0_13m1689515826.min.js"></script>
+<script src="/static/dash_table/bundle.v5_2_6m1689515825.js"></script>
+
+<!-- Arquivos do Bootstrap (se estiver usando o Dash Bootstrap Components) -->
+<link rel="stylesheet" href="/static/bootstrap.min.css">
+<script src="/static/bootstrap.min.js"></script>
 {% endblock %}

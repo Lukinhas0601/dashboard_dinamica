@@ -4,9 +4,15 @@ import plotly.graph_objects as go
 import pandas as pd
 from .utils import month_filter, team_filter, convert_to_text
 from dash_bootstrap_templates import ThemeSwitchAIO
+import dash
+import dash_bootstrap_components as dbc
 
+ # Crie uma instância do aplicativo Dash
+FONT_AWESOME = ["https:/use.fontawesome.com/releases/v5.10.2/css/all.css"]
+dash_app = dash.Dash(__name__, external_stylesheets=FONT_AWESOME)
+dash_app.scripts.config.serve_locally = True
+server = dash_app.server 
 
-app = Dash(__name__)
 
 template_theme1 = "flatly"
 template_theme2 = "darkly"
@@ -29,7 +35,7 @@ main_config = {
 
 # Gráfico 1 e 2
 
-@app.callback(
+@dash_app.callback(
     Output('graph1', 'figure'),
     Output('graph2', 'figure'),
     Output('month-select', 'children'),
@@ -57,7 +63,7 @@ def graph1(month, toggle):
 
 # Gráfico 3
 
-@app.callback(
+@dash_app.callback(
     Output('graph3', 'figure'),
     Input('radio-team', 'value'),
     Input(ThemeSwitchAIO.ids.switch("theme"), "value")
@@ -93,7 +99,7 @@ def graph3(team, toggle):
 
 # Grafico 4
 # Graph 4
-@app.callback(
+@dash_app.callback(
     Output('graph4', 'figure'),
     Input('radio-team', 'value'),
     Input(ThemeSwitchAIO.ids.switch("theme"), "value")
@@ -128,7 +134,7 @@ def graph4(team, toggle):
     return fig4
 
 # Indicators 1 and 2 ------ Graph 5 and 6
-@app.callback(
+@dash_app.callback(
     Output('graph5', 'figure'),
     Output('graph6', 'figure'),
     Input('radio-month', 'value'),
@@ -169,7 +175,7 @@ def graph5(month, toggle):
     return fig5, fig6
 
 # Graph 7
-@app.callback(
+@dash_app.callback(
     Output('graph7', 'figure'),
     Input(ThemeSwitchAIO.ids.switch("theme"), "value")
 )
@@ -187,7 +193,7 @@ def graph7(toggle):
     return fig7
 
 # Graph 8
-@app.callback(
+@dash_app.callback(
     Output('graph8', 'figure'),
     Input('radio-month', 'value'),
     Input(ThemeSwitchAIO.ids.switch("theme"), "value")
@@ -211,7 +217,7 @@ def graph8(month, toggle):
     return fig8
 
 # Graph 9
-@app.callback(
+@dash_app.callback(
     Output('graph9', 'figure'),
     Input('radio-month', 'value'),
     Input('radio-team', 'value'),
@@ -235,7 +241,7 @@ def graph9(month, team, toggle):
     return fig9
 
 # Graph 10
-@app.callback(
+@dash_app.callback(
     Output('graph10', 'figure'),
     Input('radio-team', 'value'),
     Input(ThemeSwitchAIO.ids.switch("theme"), "value")
@@ -253,7 +259,7 @@ def graph10(team, toggle):
     return fig10
 
 # Graph 11
-@app.callback(
+@dash_app.callback(
     Output('graph11', 'figure'),
     Output('team-select', 'children'),
     Input('radio-month', 'value'),
@@ -295,4 +301,4 @@ def graph11(month, team, toggle):
 
 # Inicie o servidor do Dash
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    dash_app.run_server(debug=True)

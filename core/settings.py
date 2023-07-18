@@ -26,6 +26,15 @@ SECRET_KEY = 'django-insecure-lek@q%j5zr1)i4hb#kurb)dhnom0j+=&q_x3&l74h^b_xmd4!_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+
+
+
+
 ALLOWED_HOSTS = []
 
 
@@ -117,10 +126,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
-STATIC_ROOT = os.path.join('static')
 
+# Defina o diretório raiz para arquivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# URL para acessar arquivos estáticos
+STATIC_URL = '/static/'
+
+# Adicione os diretórios de arquivos estáticos adicionais, se necessário
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'dashboard/static'),
+]
+# Configuração de arquivos de mídia
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -129,3 +146,16 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+MIME_TYPES = {
+    ".js": "application/javascript",
+    ".css": "text/css",
+}
+
+# Adicione a configuração a seguir ao final do arquivo
+# para atualizar a configuração de tipos MIME
+from mimetypes import add_type
+for ext, content_type in MIME_TYPES.items():
+    add_type(content_type, ext)
